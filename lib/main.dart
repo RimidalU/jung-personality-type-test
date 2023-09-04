@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jung_personality_type_test/result.dart';
+
+import 'result.dart';
+import 'quiz.dart';
+
 import 'assets/constants.dart' as constants;
 
 void main() {
@@ -52,40 +55,17 @@ class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Опросник Юнга.'),
-        ),
-        body: Center(
-            child: _questionIndex < constants.questions.length
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 25, vertical: 40),
-                            child: Text(
-                                style: const TextStyle(fontSize: 15),
-                                constants.questions[_questionIndex]['question']
-                                    as String)),
-                        Wrap(
-                            spacing: 20,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            direction: Axis.vertical,
-                            children: [
-                              ...(constants.questions[_questionIndex]['answers']
-                                      as List<Map<String, Object>>)
-                                  .map((item) => ElevatedButton(
-                                        onPressed: () =>
-                                            handleAnswer(item['score'] as int),
-                                        child: Text(item['text'] as String),
-                                      ))
-                                  .toList(),
-                            ])
-                      ])
-                : Result(
-                    handleNewQuiz: handleNewQuiz,
-                    totalScore: _totalScore,
-                  )));
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Опросник Юнга.'),
+      ),
+      body: Center(
+          child: _questionIndex < constants.questions.length
+              ? Quiz(questionIndex: _questionIndex, handleAnswer: handleAnswer)
+              : Result(
+                  handleNewQuiz: handleNewQuiz,
+                  totalScore: _totalScore,
+                )),
+    );
   }
 }
