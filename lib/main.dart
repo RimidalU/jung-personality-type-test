@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jung_personality_type_test/result.dart';
 import 'assets/constants.dart' as constants;
 
 void main() {
@@ -48,16 +49,6 @@ class _HomePage extends State<HomePage> {
     });
   }
 
-  String determineType(totalScore) {
-    if (totalScore <= 35) {
-      return 'introvert';
-    } else if (totalScore >= 66) {
-      return 'extravert';
-    } else {
-      return 'ambivert';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,43 +83,9 @@ class _HomePage extends State<HomePage> {
                                   .toList(),
                             ])
                       ])
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Набранно балов: ',
-                              style: TextStyle(fontSize: 25),
-                            ),
-                            Text(
-                              _totalScore.toString(),
-                              style: const TextStyle(fontSize: 25),
-                            ),
-                          ]),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 40,
-                        ),
-                        child: Text(
-                          textAlign: TextAlign.justify,
-                          constants.psychoTypes[determineType(_totalScore)]
-                              as String,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: handleNewQuiz,
-                        child: const Text(
-                          'Пройти тест еще раз',
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.blueAccent,
-                              decorationThickness: 2),
-                        ),
-                      ),
-                    ],
+                : Result(
+                    handleNewQuiz: handleNewQuiz,
+                    totalScore: _totalScore,
                   )));
   }
 }
