@@ -34,6 +34,13 @@ class _HomePage extends State<HomePage> {
   var _questionIndex = 0;
   var _totalScore = 0;
 
+  void handleAnswer(int score) {
+    _totalScore += score;
+    setState(() {
+      _questionIndex++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,19 +49,22 @@ class _HomePage extends State<HomePage> {
           title: const Text('Опросник Юнга.'),
         ),
         body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(constants.questions[_questionIndex]['question'] as String),
-            ...(constants.questions[_questionIndex]['answers']
-                    as List<Map<String, Object>>)
-                .map((item) => ElevatedButton(
-                      onPressed: () {},
-                      child: Text(item['text'] as String),
-                    ))
-                .toList(),
-            // Text(constants.psychoTypes['extravert'] as String),
-          ],
-        )));
+          child: _questionIndex < constants.questions.length
+              ? Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 40),
+                      child: Text(constants.questions[_questionIndex]
+                          ['question'] as String)),
+                  ...(constants.questions[_questionIndex]['answers']
+                          as List<Map<String, Object>>)
+                      .map((item) => ElevatedButton(
+                            onPressed: () => handleAnswer(item['score'] as int),
+                            child: Text(item['text'] as String),
+                          ))
+                      .toList(),
+                ])
+              : Text(_totalScore.toString()),
+        ));
   }
 }
