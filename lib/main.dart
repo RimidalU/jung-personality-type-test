@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'assets/constants.dart' as constants;
 
 void main() {
   runApp(const App());
@@ -33,11 +34,13 @@ class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Опросник Юнга.'),
-      ),
-      body: const Text('Body'),
-    );
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Опросник Юнга.'),
+        ),
+        body: Column(children: [
+          Text(constants.questions[0]['question'] as String),
+          Text(constants.psychoTypes['extravert'] as String),
+        ]));
   }
 }
