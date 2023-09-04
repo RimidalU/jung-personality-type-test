@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'assets/constants.dart' as constants;
+
+import 'result_description.dart';
 
 class Result extends StatelessWidget {
   final int totalScore;
@@ -7,16 +8,6 @@ class Result extends StatelessWidget {
 
   const Result(
       {super.key, required this.totalScore, required this.handleNewQuiz});
-
-  String determineType(totalScore) {
-    if (totalScore <= 35) {
-      return 'introvert';
-    } else if (totalScore >= 66) {
-      return 'extravert';
-    } else {
-      return 'ambivert';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +25,13 @@ class Result extends StatelessWidget {
           ),
         ]),
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 25,
-            vertical: 40,
-          ),
-          child: Text(
-            textAlign: TextAlign.justify,
-            constants.psychoTypes[determineType(totalScore)] as String,
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 40,
+            ),
+            child: ResultDescription(
+              totalScore: totalScore,
+            )),
         TextButton(
           onPressed: handleNewQuiz,
           child: const Text(
