@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'quiz_actions.dart';
+
 import 'assets/constants.dart' as constants;
 
 class Quiz extends StatelessWidget {
@@ -20,19 +22,7 @@ class Quiz extends StatelessWidget {
           child: Text(
               style: const TextStyle(fontSize: 15),
               constants.questions[questionIndex]['question'] as String)),
-      Wrap(
-          spacing: 20,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          direction: Axis.vertical,
-          children: [
-            ...(constants.questions[questionIndex]['answers']
-                    as List<Map<String, Object>>)
-                .map((item) => ElevatedButton(
-                      onPressed: () => handleAnswer(item['score'] as int),
-                      child: Text(item['text'] as String),
-                    ))
-                .toList(),
-          ])
+      QuizActions(questionIndex: questionIndex, handleAnswer: handleAnswer)
     ]);
   }
 }
