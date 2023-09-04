@@ -48,6 +48,16 @@ class _HomePage extends State<HomePage> {
     });
   }
 
+  String determineType(totalScore) {
+    if (totalScore <= 35) {
+      return 'extravert';
+    } else if (totalScore >= 66) {
+      return 'introvert';
+    } else {
+      return 'ambivert';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +88,16 @@ class _HomePage extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(_totalScore.toString()),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 40),
+                        child: Text(constants
+                            .psychoTypes[determineType(_totalScore)] as String),
+                      ),
                       TextButton(
-                          onPressed: handleNewQuiz,
-                          child: const Text('Go through again')),
+                        onPressed: handleNewQuiz,
+                        child: const Text('Go through again'),
+                      ),
                     ],
                   )));
   }
