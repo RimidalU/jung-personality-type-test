@@ -31,6 +31,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  var _questionIndex = 0;
+  var _totalScore = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +41,20 @@ class _HomePage extends State<HomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text('Опросник Юнга.'),
         ),
-        body: Column(children: [
-          Text(constants.questions[0]['question'] as String),
-          Text(constants.psychoTypes['extravert'] as String),
-        ]));
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(constants.questions[_questionIndex]['question'] as String),
+            ...(constants.questions[_questionIndex]['answers']
+                    as List<Map<String, Object>>)
+                .map((item) => ElevatedButton(
+                      onPressed: () {},
+                      child: Text(item['text'] as String),
+                    ))
+                .toList(),
+            // Text(constants.psychoTypes['extravert'] as String),
+          ],
+        )));
   }
 }
