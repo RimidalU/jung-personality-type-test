@@ -50,9 +50,9 @@ class _HomePage extends State<HomePage> {
 
   String determineType(totalScore) {
     if (totalScore <= 35) {
-      return 'extravert';
-    } else if (totalScore >= 66) {
       return 'introvert';
+    } else if (totalScore >= 66) {
+      return 'extravert';
     } else {
       return 'ambivert';
     }
@@ -73,30 +73,60 @@ class _HomePage extends State<HomePage> {
                         Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 25, vertical: 40),
-                            child: Text(constants.questions[_questionIndex]
-                                ['question'] as String)),
-                        ...(constants.questions[_questionIndex]['answers']
-                                as List<Map<String, Object>>)
-                            .map((item) => ElevatedButton(
-                                  onPressed: () =>
-                                      handleAnswer(item['score'] as int),
-                                  child: Text(item['text'] as String),
-                                ))
-                            .toList(),
+                            child: Text(
+                                style: const TextStyle(fontSize: 15),
+                                constants.questions[_questionIndex]['question']
+                                    as String)),
+                        Wrap(
+                            spacing: 20,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            direction: Axis.vertical,
+                            children: [
+                              ...(constants.questions[_questionIndex]['answers']
+                                      as List<Map<String, Object>>)
+                                  .map((item) => ElevatedButton(
+                                        onPressed: () =>
+                                            handleAnswer(item['score'] as int),
+                                        child: Text(item['text'] as String),
+                                      ))
+                                  .toList(),
+                            ])
                       ])
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(_totalScore.toString()),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Набранно балов: ',
+                              style: TextStyle(fontSize: 25),
+                            ),
+                            Text(
+                              _totalScore.toString(),
+                              style: const TextStyle(fontSize: 25),
+                            ),
+                          ]),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 40),
-                        child: Text(constants
-                            .psychoTypes[determineType(_totalScore)] as String),
+                          horizontal: 25,
+                          vertical: 40,
+                        ),
+                        child: Text(
+                          textAlign: TextAlign.justify,
+                          constants.psychoTypes[determineType(_totalScore)]
+                              as String,
+                        ),
                       ),
                       TextButton(
                         onPressed: handleNewQuiz,
-                        child: const Text('Go through again'),
+                        child: const Text(
+                          'Пройти тест еще раз',
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.blueAccent,
+                              decorationThickness: 2),
+                        ),
                       ),
                     ],
                   )));
