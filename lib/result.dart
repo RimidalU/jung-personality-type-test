@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'result_description.dart';
+import 'result_actions.dart';
 import 'result_score.dart';
 
 class Result extends StatelessWidget {
@@ -24,16 +25,7 @@ class Result extends StatelessWidget {
             child: ResultDescription(
               totalScore: totalScore,
             )),
-        TextButton(
-          onPressed: handleNewQuiz,
-          child: const Text(
-            'Пройти тест еще раз',
-            style: TextStyle(
-                decoration: TextDecoration.underline,
-                decorationColor: Colors.blueAccent,
-                decorationThickness: 2),
-          ),
-        ),
+        ResultActions(handleNewQuiz: handleNewQuiz)
       ],
     );
   }
