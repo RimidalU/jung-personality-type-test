@@ -41,6 +41,13 @@ class _HomePage extends State<HomePage> {
     });
   }
 
+  void handleNewQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,22 +56,32 @@ class _HomePage extends State<HomePage> {
           title: const Text('Опросник Юнга.'),
         ),
         body: Center(
-          child: _questionIndex < constants.questions.length
-              ? Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 40),
-                      child: Text(constants.questions[_questionIndex]
-                          ['question'] as String)),
-                  ...(constants.questions[_questionIndex]['answers']
-                          as List<Map<String, Object>>)
-                      .map((item) => ElevatedButton(
-                            onPressed: () => handleAnswer(item['score'] as int),
-                            child: Text(item['text'] as String),
-                          ))
-                      .toList(),
-                ])
-              : Text(_totalScore.toString()),
-        ));
+            child: _questionIndex < constants.questions.length
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 40),
+                            child: Text(constants.questions[_questionIndex]
+                                ['question'] as String)),
+                        ...(constants.questions[_questionIndex]['answers']
+                                as List<Map<String, Object>>)
+                            .map((item) => ElevatedButton(
+                                  onPressed: () =>
+                                      handleAnswer(item['score'] as int),
+                                  child: Text(item['text'] as String),
+                                ))
+                            .toList(),
+                      ])
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(_totalScore.toString()),
+                      TextButton(
+                          onPressed: handleNewQuiz,
+                          child: const Text('Go through again')),
+                    ],
+                  )));
   }
 }
