@@ -18,8 +18,7 @@
 [License](#license) •
 [Contact](#contact)
 
-<img src="./assets/quest.png" width="300" />
-<img src="./assets/result.png" width="300" />
+<img src="./assets/quest.png" width="300" /><img src="./assets/result.png" width="300" />
 
 
 ## Description
